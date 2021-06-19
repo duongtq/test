@@ -1,0 +1,36 @@
+package com.nashtechglobal.service.functional;
+
+import com.nashtechglobal.datamodel.Author;
+import com.nashtechglobal.datamodel.Post;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class AuthorService {
+    public Author findAuthorByPredicate(List<Author> authors, IPredicate<Author> authorPredicate) {
+        for (Author author : authors) {
+            if (authorPredicate.test(author)) {
+                return author;
+            }
+        }
+        return null;
+    }
+
+    public Author findAuthorByUserName(List<Author> authors, String username) {
+        return findAuthorByPredicate(authors, author -> author.getUsername().equals(username));
+    }
+    
+    public Author findAuthorByEmail(List<Author> authors, String email) {
+        return findAuthorByPredicate(authors, author -> author.getEmail().equals(email));
+    }
+
+    public Set<String> findAllAuthorNames(List<Post> posts) {
+        Set<String> authorNames = new HashSet<>();
+        for (Post post: posts) {
+            authorNames.add(post.getAuthor());
+        }
+        return authorNames;
+    }
+
+}

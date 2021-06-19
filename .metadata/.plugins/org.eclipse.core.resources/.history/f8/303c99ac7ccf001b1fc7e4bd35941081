@@ -1,0 +1,19 @@
+package com.nashtechglobal;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.nashtechglobal.datamodel.Post;
+
+public class Main {
+	private static final List<Post> posts = new ArrayList<>();
+	
+	static {
+		posts.add(new Post(1, "Tran Duong", "How to debug in Java with Eclipse", ""));
+		posts.add(new Post());
+	}
+	
+    public static void main(String[] args) {
+        
+    }
+}

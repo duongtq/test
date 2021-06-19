@@ -1,1 +1,0 @@
-print "Hi i am gosu"

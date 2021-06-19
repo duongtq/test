@@ -1,0 +1,24 @@
+package com.concurrency.exploration.controlthreadinterruption;
+
+import java.util.concurrent.TimeUnit;
+
+public class SearchFile {
+	public static void main(String[] args) {
+		String initPath = "/Users/MaiSon/SOFTWARE_ENGINEERING";
+		String fileName = "SearchFile.java";
+		
+		FileSearch searcher = new FileSearch(init, "");
+		
+		Thread task = new Thread(searcher);
+		
+		task.start();
+		
+		try {
+			TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		
+		task.interrupt();
+	}
+}

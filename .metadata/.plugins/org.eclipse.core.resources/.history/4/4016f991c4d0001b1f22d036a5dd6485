@@ -1,0 +1,44 @@
+package com.concurrency.exploration.controlthreadinterruption;
+
+import java.io.File;
+
+public class FileSearch implements Runnable {
+	private String initPath;
+	private String fileName;
+	
+	public FileSearch(String initPath, String fileName) {
+		this.initPath = initPath;
+		this.fileName = fileName;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		File file = new File(initPath);
+		
+		if (file.isDirectory()) {
+			try {
+				directoryProcess(file);
+			} catch (InterruptedException ex) {
+				System.out.printf("%s: The search has been interrupted.", Thread.currentThread().getName());
+			}
+		} 
+	}
+	
+	private void directoryProcess(File file) {
+		File[] list = file.listFiles();
+		
+		if (list != null) {
+			for (File el : list) {
+				if (el.isDirectory()) {
+					directoryProcess(el);
+				} else {
+					fileProcess(el);
+				}
+			}
+		}
+	}
+	
+	private void fileProcess(F)
+
+}

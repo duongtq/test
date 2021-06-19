@@ -1,0 +1,11 @@
+package com.concurrency.exploration.threadinterruption;
+
+public class PrimeGenerator extends Thread {
+	
+	@Override
+	public void run() {
+		long number = 1L;
+		
+	}
+
+}

@@ -1,0 +1,70 @@
+package com.nashtechglobal.service.stream;
+
+import com.nashtechglobal.datamodel.Author;
+import com.nashtechglobal.datamodel.Post;
+
+import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class PostService {
+
+    public List<Post> findByUsername(List<Post> posts, String username) {
+        return posts.stream()
+                .filter(post -> post.getAuthor().equals(username))
+                .collect(Collectors.toList());
+    }
+
+    public List<Post> findByKeyword(List<Post> posts, String keyword) {
+        return posts.stream()
+                .filter(post -> post.getTitle().contains(keyword) || post.getContent().contains(keyword))
+                .collect(Collectors.toList());
+    }
+
+    public List<Post> findTop10NewestPostsByUsername(List<Post> posts, String username) {
+        return posts.stream()
+                .filter(post -> post.getAuthor().equals(username))
+                .sorted(Comparator.comparing(Post::getDate))
+                .limit(10)
+                .collect(Collectors.toList());
+    }
+
+    public List<Post> find10NewestPostsByUsernameAndKeyword(List<Post> posts, String username, String keyword) {
+        return posts.stream()
+                .filter(post -> post.getAuthor().equals(username))
+                .filter(post -> nullToEmpty(post.getTitle()).contains(keyword) || nullToEmpty(post.getContent()).contains(keyword))
+                .sorted(Comparator.comparing(Post::getDate))
+                .limit(10)
+                .collect(Collectors.toList());
+    }
+
+    public Map<String, List<Post>> findUserPostMap(List<Post> ports) {
+        return ports.stream()
+                .distinct()
+                .collect(Collectors.groupingBy(Post::getAuthor));
+    }
+
+    public List<Post> findAllPostsToday(List<Post> posts) {
+        return posts.stream()
+                .filter(post -> post.getDate().isEqual(LocalDate.now()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Post> findAuthorPostsMap(List<Author> authors, List<Post> posts) {
+        Set<String> authorNames = authors.stream()
+                .map(Author::getUsername)
+                .collect(Collectors.toSet());
+
+        return posts.stream()
+                .filter(post -> authorNames.contains(post.getAuthor()))
+                .collect(Collectors.toList());
+
+    }
+
+    private String nullToEmpty(String str) {
+        return str != null ? str : "";
+    }
+}

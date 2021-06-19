@@ -1,0 +1,15 @@
+package com.concurrency.exploration.threadinterruption;
+
+public class PrimeGenerator extends Thread {
+	
+	@Override
+	public void run() {
+		long number = 1L;
+		while (true) {
+			if (isPrime(number)) {
+				System.out.printf("Number %d is a Prime.\n", number);
+			}
+		}
+	}
+
+}

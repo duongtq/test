@@ -1,0 +1,5 @@
+package com.concurrency.exploration.threadinterruption;
+
+public class ThreadInterruption {
+
+}

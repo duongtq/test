@@ -1,0 +1,30 @@
+package com.nashtechglobal.service.stream;
+
+import com.nashtechglobal.datamodel.Author;
+import com.nashtechglobal.datamodel.Post;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class AuthorService {
+    public Optional<Author> findAuthorByUserName(List<Author> authors, String username) {
+        return authors.stream()
+                .filter(author -> author.getUsername().equals(username))
+                .findFirst();
+    }
+    
+    public Optional<Author> findAuthorByEmail(List<Author> authors, String email) {
+        return authors.stream()
+                .filter(author -> author.getEmail().equals(email))
+                .findFirst();
+    }
+
+    public Set<String> findAllAuthorNames(List<Post> posts) {
+        return posts.stream()
+                .map(Post::getAuthor)
+                .collect(Collectors.toSet());
+    }
+
+}

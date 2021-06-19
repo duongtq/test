@@ -1,0 +1,24 @@
+package com.nashtechglobal.utils;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+public abstract class DateTimeUtils {
+    public static String format(LocalDateTime date, String pattern) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        return date.format(dateTimeFormatter);
+    }
+
+    public static LocalDateTime createDate(String date, String pattern) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        return LocalDateTime.parse(date, dateTimeFormatter);
+    }
+
+    public static String convertDate(String date, String fromPattern, String toPattern) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(fromPattern);
+        LocalDateTime dateTime = LocalDateTime.parse(date, dateTimeFormatter);
+        return DateTimeFormatter.ofPattern(toPattern).format(dateTime);
+    }
+
+}

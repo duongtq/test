@@ -1,0 +1,18 @@
+package com.concurrency.exploration.threadbasic;
+
+public class Calculator extends Thread {
+	
+	@Override
+	public void run() {
+		long current = 1L;
+		long max = 20000L;
+		long numPrimes = 0L;
+		
+		System.out.printf("Thread '%s': START", Thread.currentThread().getName());
+		
+		while (current < max) {
+			
+		}
+	}
+
+}

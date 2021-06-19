@@ -1,0 +1,25 @@
+package com.nashtechglobal;
+
+import com.nashtechglobal.datamodel.Post;
+import com.nashtechglobal.service.FileReaderService;
+import com.nashtechglobal.utils.DateTimeUtils;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class UtilsApplication {
+    public static void main(String[] args) {
+        FileReaderService fileReaderService = new FileReaderService();
+        List<Post> posts = fileReaderService.readFile("src/posts.csv");
+        posts.forEach(System.out::println);
+
+        String date1 = DateTimeUtils.format(LocalDateTime.now(), "yyyy-MM-dd");
+        System.out.println(date1);
+
+        LocalDateTime localDateTime = DateTimeUtils.createDate("2021-06-18 12:20", "yyyy-MM-dd HH:mm");
+        System.out.println(localDateTime);
+
+        String date2 = DateTimeUtils.convertDate("2020-12-01 12:20", "yyyy-MM-dd HH:mm", "yyyy-MMM-d HH:mm");
+        System.out.println(date2);
+    }
+}

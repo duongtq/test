@@ -1,0 +1,126 @@
+package com.nashtechglobal;
+
+import com.nashtechglobal.datamodel.Author;
+import com.nashtechglobal.datamodel.Authority;
+import com.nashtechglobal.datamodel.Post;
+import com.nashtechglobal.service.functional.AuthorService;
+import com.nashtechglobal.service.functional.AuthorityService;
+import com.nashtechglobal.service.functional.PostService;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class FunctionalApplication {
+	private static final List<Post> posts = new ArrayList<>();
+	private static final List<Author> authors = new ArrayList<>();
+	private static final List<Authority> authorities = new ArrayList<>();
+	
+	static {
+	    // Insert Post data
+		posts.add(new Post(1, "Dennis Richie", "Java 101", "Debug in Java", "Java", LocalDate.of(2021, 5, 30)));
+		posts.add(new Post(2, "Robert Cecil Martin", "Clean Code", "How to write clean code", "Clean Code", LocalDate.of(2021, 6, 1)));
+        posts.add(new Post(3, "Barbara Liskov", "L in Solid: A Deep Dive", "Explore the Liskov Substitution Principle", "SOLID", LocalDate.of(2020, 12, 29)));
+        posts.add(new Post(4, "Dennis Richie", "C Programming Language", "C in Deep", "C", LocalDate.of(2021, 4, 12)));
+        posts.add(new Post(5, "Donald Knuth", "The Art of Computer Programming", "Computer Science", "Finish all of my books then we will talk", LocalDate.of(2019, 11, 30)));
+        posts.add(new Post(6, "James Gosling", "Multithreading in Java", "A introduction to multithreading in Java", "Multithreading...", LocalDate.of(2018, 2, 27)));
+        posts.add(new Post(7, "Brendan Eich", "JavaScript for Rocket Scientists", "SOLID", "SOLID", LocalDate.of(2017, 6, 23)));
+        posts.add(new Post(8, "Robert Cecil Martin", "Clean Code", "SOLID", "SOLID", LocalDate.of(2020, 7, 24)));
+        posts.add(new Post(9, "Brendan Eich", "Do you truly need Node.js ?", "JavaScript", "Node.js Demystified", LocalDate.of(2014, 2, 12)));
+        posts.add(new Post(10, "James Gosling", "Data Structures and Algorithms in Java", "DS&A", "SOLID", LocalDate.of(2015, 12, 12)));
+        posts.add(new Post(11, "Donald Knuth", "You are not a good engineer!!!", "SOLID", "SOLID", LocalDate.of(2017, 3, 12)));
+        posts.add(new Post(12, "James Gosling", "Run for your life", "RUN", "RUN", LocalDate.of(2016, 1, 17)));
+
+	    // Insert Author data
+        authors.add(new Author("Dennis Richie", "muvodoi", "Dennis", "Richie", "drichie@gmail.com", LocalDate.of(1941, 9, 9), LocalDateTime.of(2021, 6, 18, 20, 20, 20)));
+        authors.add(new Author("Robert Cecil Martin", "chiphoinganha", "Robert", "Martin", "unclebob@gmail.com", LocalDate.of(1952, 12, 5), LocalDateTime.of(2021, 6, 18, 20, 20, 20)));
+        authors.add(new Author("Barbara Liskov", "sanbangtatca6789", "Barbara", "Liskov", "barbaraliskov@gmail.com", LocalDate.of(1939, 10, 7), LocalDateTime.of(2021, 6, 18, 20, 20, 20)));
+        authors.add(new Author("Donald Knuth", "123456", "Donald", "Knuth", "dknuth@gmail.com", LocalDate.of(1938, 1, 10), LocalDateTime.of(2021, 6, 18, 20, 20, 20)));
+        authors.add(new Author("James Gosling", "javaforlife", "James", "Gosling", "jgosling@gmail.com", LocalDate.of(1955, 5, 19), LocalDateTime.of(2021, 6, 18, 20, 20, 20)));
+        authors.add(new Author("Brendan Eich", "javascriptzabest", "Brendan", "Eich", "brendaneich@gmail.com", LocalDate.of(1961, 7, 4), LocalDateTime.of(2021, 6, 18, 20, 20, 20)));
+
+        // Insert Authority data
+        authorities.add(new Authority("Dennis Richie", "Blogger"));
+        authorities.add(new Authority("Robert Cecil Martin", "Blogger"));
+        authorities.add(new Authority("Barbara Liskov", "Blogger"));
+        authorities.add(new Authority("Donald Knuth", "Admin"));
+        authorities.add(new Authority("James Gosling", "Admin"));
+        authorities.add(new Authority("Brendan Eich", "Blogger"));
+        authorities.add(new Authority("James Gosling", "Blogger"));
+        authorities.add(new Authority("Donald Knuth", "Blogger"));
+    }
+
+    public static void main(String[] args) {
+        AuthorService authorService = new AuthorService();
+        AuthorityService authorityService = new AuthorityService();
+        PostService postService = new PostService();
+        String authorName = "James Gosling";
+        String email = "jgosling@gmail.com";
+        String keyword = "Java";
+
+        System.out.println("TEST DRIVER");
+
+        // Find Author by username
+        System.out.println("Author: " + authorName);
+        Author author = authorService.findAuthorByUserName(authors, authorName);
+        System.out.println(author);
+        System.out.println("-----------------------------------------------------------------------------");
+
+        // Find Author by email
+        System.out.println("Email: " + email);
+        Author author1 = authorService.findAuthorByEmail(authors, email);
+        System.out.println(author1);
+        System.out.println("-----------------------------------------------------------------------------");
+
+        // Find all Author names
+        System.out.println("All author names: ");
+        Set<String> authorList = authorService.findAllAuthorNames(posts);
+        System.out.println(authorList);
+        System.out.println("-----------------------------------------------------------------------------");
+
+        // Find posts by username
+        System.out.println("Posts by author: " + authorName);
+        List<Post> postsByUser = postService.findByUsername(posts, authorName);
+        postsByUser.forEach(System.out::println);
+        System.out.println("-----------------------------------------------------------------------------");
+
+        // Find post by keyword
+        System.out.println("Posts by keyword: " + keyword);
+        List<Post> postsByKeyword = postService.findByKeyword(posts, keyword);
+        postsByKeyword.forEach(System.out::println);
+        System.out.println("-----------------------------------------------------------------------------");
+
+        // Find top 10 newest posts
+        System.out.println("10 newest posts: ");
+        List<Post> top10NewestPosts = postService.findTop10NewestPostsByUsername(posts,authorName);
+        top10NewestPosts.forEach(System.out::println);
+        System.out.println("-----------------------------------------------------------------------------");
+
+        // Find top 10 newest posts by username and keyword
+        System.out.println("10 newest posts by username: " + authorName + " and keyword: " + keyword);
+        List<Post> top10NewestPosts1 = postService.find10NewestPostsByUsernameAndKeyword(posts, authorName, keyword);
+        top10NewestPosts1.forEach(System.out::println);
+        System.out.println("-----------------------------------------------------------------------------");
+
+        // User-post map
+        System.out.println("User-post map: ");
+        Map<String, List<Post>> userPostMap = postService.findUserPostMap(posts);
+        for (Map.Entry<String, List<Post>> entry : userPostMap.entrySet()) {
+            System.out.println("====> Author: " + entry.getKey());
+            for (Post post : entry.getValue()) {
+                System.out.println(post);
+            }
+        }
+        System.out.println("-----------------------------------------------------------------------------");
+
+        // Find top 10 newest posts by username and keyword
+        System.out.println("Authority of username: " + authorName);
+        List<String> authority = authorityService.findAuthorityByUsername(authorities, authorName);
+        authority.forEach(System.out::println);
+        System.out.println("-----------------------------------------------------------------------------");
+
+    }
+}

@@ -1,0 +1,23 @@
+package com.nashtechglobal.service.functional;
+
+import com.nashtechglobal.datamodel.Authority;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AuthorityService {
+    public List<String> findAuthorityByPredicate(List<Authority> authorities, IPredicate<Authority> authorityPredicate) {
+        List<String> authoritiesByUser = new ArrayList<>();
+
+        for (Authority authority : authorities) {
+            if (authorityPredicate.test(authority)) {
+                authoritiesByUser.add(authority.getAuthority());
+            }
+        }
+        return authoritiesByUser;
+    }
+
+    public List<String> findAuthorityByUsername(List<Authority> authorities, String username) {
+        return findAuthorityByPredicate(authorities, authority -> authority.getUsername().equals(username));
+    }
+}

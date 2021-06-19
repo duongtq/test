@@ -1,0 +1,21 @@
+package com.nashtechglobal;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.nashtechglobal.datamodel.Post;
+
+public class Main {
+	private static final List<Post> posts = new ArrayList<>();
+	
+	static {
+		posts.add(new Post(1, "Tran Duong", "Java 101", "Debug in Java", "Debug in Java is not a nightmare", LocalDate.now()));
+		posts.add(new Post(2, "Robert C.Martin", "Clean Code", "How to write clean code", "Clean code is a must for ever", LocalDate.now()));
+	}
+	
+    public static void main(String[] args) {
+        
+    }
+}
